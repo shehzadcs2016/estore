@@ -2,7 +2,7 @@ const express = require("express")
 const app = express()
 const http = require("http")
 const hostname = "127.0.0.1"
-const port = 3000
+const PORT = process.env.PORT || 3000
 const morgan = require("morgan")
 const bodyParser = require("body-parser")
 const cookieParser = require("cookie-parser")
@@ -63,8 +63,8 @@ const server = http.createServer((req, res) => {
   res.end("Hello World")
 })
 
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`)
+app.listen(PORT, hostname, () => {
+  console.log(`Server running at http://${hostname}:${PORT}/`)
 })
 
 if (process.env.NODE_ENV === "production") {
