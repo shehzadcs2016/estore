@@ -21,7 +21,7 @@ const cartRoutes = require("./routes/cart")
 const fs = require("fs")
 const cors = require("cors")
 app.use(cors())
-mongoose.connect(process.env.MONGO_URI, {
+mongoose.connect(process.env.MONGO_URI || "mongodb://localhost:27017/estore", {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true,
@@ -63,10 +63,6 @@ const server = http.createServer((req, res) => {
   res.end("Hello World")
 })
 
-app.listen(PORT, hostname, () => {
-  console.log(`Server running at http://${hostname}:${PORT}/`)
-})
-
 if (process.env.NODE_ENV === "production") {
   // Set static folder
   app.use(express.static("client/build"))
@@ -75,3 +71,6 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
   })
 }
+app.listen(PORT, hostname, () => {
+  console.log(`Server running at http://${hostname}:${PORT}/`)
+})
